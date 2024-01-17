@@ -9,7 +9,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/fdr")
+@RequestMapping("/tas-fdr")
 public class FdrController {
 
     private final FdrService fdrService;
