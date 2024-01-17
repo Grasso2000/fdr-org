@@ -1,13 +1,13 @@
-package com.giovanni.fdrorg;
+package eu.tasgroup.fdr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FdrOrgApplication {
+public class FdrApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FdrOrgApplication.class, args);
+		SpringApplication.run(FdrApplication.class, args);
 	}
 
 }
