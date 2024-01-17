@@ -19,8 +19,10 @@ public class FdrController {
     }
 
     @GetMapping("/organizations/{organizationId}/fdrs/{fdr}/revisions/{revision}/psps/{pspId}")
-    public Mono<ResponseEntity<Fdr>> getFdr(@PathVariable String organizationId, @PathVariable String fdr,
-                                            @PathVariable int revision, @PathVariable String pspId) {
+    public Mono<ResponseEntity<Fdr>> getFdr(@PathVariable String organizationId,
+                                            @PathVariable String fdr,
+                                            @PathVariable int revision,
+                                            @PathVariable String pspId) {
         return fdrService.getFdr(organizationId, fdr, revision, pspId)
                 .map(ResponseEntity::ok)
                 .onErrorResume(e -> {

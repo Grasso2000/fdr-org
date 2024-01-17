@@ -1,4 +1,4 @@
-package eu.tasgroup.fdr.repository;
+package eu.tasgroup.fdr.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
