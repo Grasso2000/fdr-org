@@ -12,7 +12,7 @@ public class WebClientConfig {
     private String remoteApiBaseUrl;
 
     @Bean
-    public WebClient webClient() {;
+    public WebClient webClient() {
 
         return WebClient.builder()
                 .baseUrl(remoteApiBaseUrl)
