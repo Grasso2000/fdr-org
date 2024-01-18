@@ -16,13 +16,9 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api")
 public class FdrController {
-
-    private final FdrService fdrService;
-
+    
     @Autowired
-    public FdrController(FdrService fdrService) {
-        this.fdrService = fdrService;
-    }
+    private FdrService fdrService;
 
     @GetMapping(value = "/organization-fdrs/{organizationId}/fdrs",
             produces = MediaType.APPLICATION_JSON_VALUE)
