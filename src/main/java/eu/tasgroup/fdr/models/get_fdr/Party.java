@@ -1,4 +1,4 @@
-package eu.tasgroup.fdr.models.get_all_published;
+package eu.tasgroup.fdr.models.get_fdr;
 
 import lombok.Data;
 

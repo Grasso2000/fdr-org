@@ -1,12 +1,16 @@
 package eu.tasgroup.fdr.controller;
 
-import eu.tasgroup.fdr.models.get_all_published.Fdr;
+import eu.tasgroup.fdr.models.error_response.ErrorResponse;
 import eu.tasgroup.fdr.service.FdrService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tas-fdr")
@@ -19,19 +23,14 @@ public class FdrController {
     }
 
     @GetMapping("/organizations/{organizationId}/fdrs/{fdr}/revisions/{revision}/psps/{pspId}")
-    public Mono<ResponseEntity<Fdr>> getFdr(@PathVariable String organizationId,
-                                            @PathVariable String fdr,
-                                            @PathVariable int revision,
-                                            @PathVariable String pspId) {
+    public Mono<ResponseEntity<?>> getFdr(@PathVariable String organizationId,
+                                          @PathVariable String fdr,
+                                          @PathVariable int revision,
+                                          @PathVariable String pspId) {
         return fdrService.getFdr(organizationId, fdr, revision, pspId)
-                .map(ResponseEntity::ok)
+                .map(fdrData -> ResponseEntity.ok().body(fdrData)) // ResponseEntity with Fdr as the body
                 .onErrorResume(e -> {
-                    if (e instanceof HttpClientErrorException clientError) {
-                        return Mono.just(ResponseEntity.status(clientError.getStatusCode()).body(null));
-                    } else if (e instanceof HttpServerErrorException serverError) {
-                        return Mono.just(ResponseEntity.status(serverError.getStatusCode()).body(null));
-                    } else {
-                        return Mono.just(ResponseEntity.status(500).body(null));
+
                     }
                 });
     }

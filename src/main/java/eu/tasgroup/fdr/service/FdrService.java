@@ -1,6 +1,6 @@
 package eu.tasgroup.fdr.service;
 
-import eu.tasgroup.fdr.models.get_all_published.Fdr;
+import eu.tasgroup.fdr.models.get_fdr.Fdr;
 import eu.tasgroup.fdr.repository.FdrRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
