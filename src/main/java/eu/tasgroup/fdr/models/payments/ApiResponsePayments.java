@@ -1,11 +1,11 @@
-package eu.tasgroup.fdr.model.payments;
+package eu.tasgroup.fdr.models.payments;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ApiResponsePeyments {
+public class ApiResponsePayments {
 
     private List<PaymentItem> data;
 }

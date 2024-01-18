@@ -1,4 +1,4 @@
-package eu.tasgroup.fdr.model.payments;
+package eu.tasgroup.fdr.models.payments;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

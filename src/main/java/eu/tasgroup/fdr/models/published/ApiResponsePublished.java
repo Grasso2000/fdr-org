@@ -1,4 +1,4 @@
-package eu.tasgroup.fdr.model.published;
+package eu.tasgroup.fdr.models.published;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
