@@ -1,9 +1,10 @@
 package eu.tasgroup.fdr.controller;
 
 
-import eu.tasgroup.fdr.models.allpublished.ApiResponseGetAll;
+import eu.tasgroup.fdr.models.allpublished.GetAll;
+import eu.tasgroup.fdr.models.fdr.FdrPlusPayments;
 import eu.tasgroup.fdr.models.payments.ApiResponsePayments;
-import eu.tasgroup.fdr.models.published.ApiResponsePublished;
+import eu.tasgroup.fdr.models.published.PublishedFdr;
 import eu.tasgroup.fdr.service.FdrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,14 +23,14 @@ public class FdrController {
 
     @GetMapping(value = "/organization-fdrs/{organizationId}/fdrs",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ApiResponseGetAll> getGetAllPublished(
+    public Mono<GetAll> getGetAllPublished(
             @PathVariable("organizationId") String organizationId) {
         return fdrService.fetchGetAllPublished(organizationId);
     }
 
     @GetMapping(value = "/psp-details/{organizationId}/{fdr}/{revision}/{pspId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ApiResponsePublished> getPublished(
+    public Mono<PublishedFdr> getPublished(
             @PathVariable String organizationId,
             @PathVariable String fdr,
             @PathVariable String revision,
@@ -45,5 +46,14 @@ public class FdrController {
             @PathVariable String revision,
             @PathVariable String pspId) {
         return fdrService.fetchPayments(organizationId, fdr, revision, pspId);
+    }
+    @GetMapping(value = "/complete-fdr/{organizationId}/{fdr}/{revision}/{pspId}",
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<FdrPlusPayments> getCompleteFdr(
+            @PathVariable String organizationId,
+            @PathVariable String fdr,
+            @PathVariable String revision,
+            @PathVariable String pspId) {
+        return fdrService.fetchCompleteFdr(organizationId,fdr,revision,pspId);
     }
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 
 @Data
-public class ApiResponseGetAll {
+public class GetAll {
     private List<FdrItem> data;
 }
