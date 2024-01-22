@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface FdrMapper {
     FdrMapper INSTANCE = Mappers.getMapper(FdrMapper.class);
+
     @Mapping(target = "paymentList", ignore = true)
     FdrPlusPayments toFdrPlusPayments(PublishedFdr publishedFdr);
 }
