@@ -6,12 +6,9 @@ import eu.tasgroup.fdr.models.payments.ApiResponsePayments;
 import eu.tasgroup.fdr.models.published.PublishedFdr;
 import eu.tasgroup.fdr.service.mapper.FdrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
-
 
 @Service
 public class FdrService {
@@ -20,8 +17,6 @@ public class FdrService {
     private WebClient webClient;
     @Autowired
     private FdrMapper fdrMapper;
-//    @Autowired
-//    private Logger logger;
 
     public Mono<GetAll> fetchGetAllPublished(String organizationId) {
         String apiUrl = "/organizations/{organizationId}/fdrs";
@@ -52,8 +47,6 @@ public class FdrService {
                     return fdrPlusPayments;
                 });
     }
-
-
 
     private <T> Mono<T> fetchDataFromRemoteApi(String apiUrl, Class<T> responseType, Object... uriVariables) {
         return webClient
