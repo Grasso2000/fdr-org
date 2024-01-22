@@ -47,8 +47,9 @@ public class FdrController {
             @PathVariable String pspId) {
         return fdrService.fetchPayments(organizationId, fdr, revision, pspId);
     }
+
     @GetMapping(value = "/complete-fdr/{organizationId}/{fdr}/{revision}/{pspId}",
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<FdrPlusPayments> getCompleteFdr(
             @PathVariable String organizationId,
             @PathVariable String fdr,
