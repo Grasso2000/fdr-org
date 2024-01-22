@@ -7,7 +7,8 @@ public class Receiver {
 
     private String id;
 
+    private String organizationId;
+
     private String organizationName;
 
-    private String organizationId;
 }

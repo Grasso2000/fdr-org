@@ -9,6 +9,8 @@ public class Sender {
 
     private String id;
 
+    private String pspId;
+
     private String pspName;
 
     private String pspBrokerId;
@@ -17,5 +19,4 @@ public class Sender {
 
     private String password;
 
-    private String pspId;
 }
