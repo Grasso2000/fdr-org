@@ -39,15 +39,13 @@ public class FdrService {
     }
 
     public Mono<FdrPlusPayments> fetchCompleteFdr(String organizationId, String fdr, String revision, String pspId) {
-        Mono<PublishedFdr> publishedFdrMono = fetchGetPublished(organizationId, fdr, revision, pspId);
-        Mono<ApiResponsePayments> paymentsMono = fetchPayments(organizationId, fdr, revision, pspId);
-
-        return Mono.zip(publishedFdrMono, paymentsMono)
-                .map(tuple -> {
-                    FdrPlusPayments fdrPlusPayments = fdrMapper.toFdrPlusPayments(tuple.getT1());
-                    fdrPlusPayments.setPaymentList(tuple.getT2().getData());
-                    return fdrPlusPayments;
-                });
+        Mono<PublishedFdr> fdrResponseMono = fetchGetPublished(organizationId, fdr, revision, pspId);
+        Mono<ApiResponsePayments> paymentsResponseMono = fetchPayments(organizationId, fdr, revision, pspId);
+        return Mono.zip(fdrResponseMono, paymentsResponseMono, (publishedFdr, apiResponsePayments) -> {
+            FdrPlusPayments fdrPlusPayments = fdrMapper.toFdrPlusPayments(publishedFdr);
+            fdrPlusPayments.setPaymentList(apiResponsePayments.getData());
+            return fdrPlusPayments;
+        });
     }
 
     private <T> Mono<T> fetchDataFromRemoteApi(String apiUrl, Class<T> responseType, Object... uriVariables) {
@@ -60,12 +58,15 @@ public class FdrService {
 
     private <T> Mono<T> handleApiError(Throwable throwable, Class<T> responseType) {
         String responseBody = null;
-        WebClientResponseException webClientException = null;
+        WebClientResponseException webClientException;
+
         if (throwable instanceof WebClientResponseException) {
             webClientException = (WebClientResponseException) throwable;
             responseBody = webClientException.getResponseBodyAsString();
             HttpStatusCode statusCode = webClientException.getStatusCode();
         }
+
         return (Mono<T>) Mono.justOrEmpty(responseBody);
     }
+
 }
